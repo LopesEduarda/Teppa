@@ -49,17 +49,11 @@ const TasksForm: React.FC = () => {
     async function onSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        const headers = {
-            headers: {
-                authorization: token
-            }
-        }
-
         if (id !== undefined) {
-            const response = await api.put(`/task/${id}`, model, axiosConfig)
+            await api.put(`/task/${id}`, model, axiosConfig)
             alert('Tarefa editada com sucesso!')
         } else {
-            const response = await api.post('/task', model, axiosConfig)
+            await api.post('/task', model, axiosConfig)
             alert('Tarefa criada com sucesso!')
         }
         // se o id for diferente de undefined, ou seja, se ele existir, será editado.
@@ -71,8 +65,8 @@ const TasksForm: React.FC = () => {
         console.log(response)
 
         setModel({
-            title: response.data.title,
-            status: response.data.status
+            title: response.data.task[0].title,
+            status: response.data.task[0].status
         })
     }
 

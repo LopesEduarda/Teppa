@@ -21,7 +21,6 @@ const Tasks: React.FC = () => {
         alert('Logout realizado com sucesso!')
     }
 
-
     // assíncrona pois a requisição pode demorar ou não
     async function getTasks() {
         const response = await api.get('/tasks')
@@ -34,8 +33,19 @@ const Tasks: React.FC = () => {
         getTasks();
     }, [])
 
+    const token = localStorage.getItem('token')
+
+    let axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
+            "authorization": `${token}`
+        }
+      };
+
     async function deleteTask(id: string) {
-        await api.delete(`/task/${id}`)
+        // console.log(await api())
+        await api.delete(`/task/${id}`, axiosConfig)
         getTasks()
     }
 

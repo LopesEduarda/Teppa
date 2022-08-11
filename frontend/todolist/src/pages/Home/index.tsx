@@ -7,6 +7,7 @@ import useForm from '../../hooks/useform';
 import { useNavigate } from "react-router-dom";
 import api from '../../services/api';
 
+
 function Login() {
     const navigate = useNavigate();
     const [show, setShow] = useState(false);
@@ -24,7 +25,8 @@ function Login() {
         const body = form
 
         const response = await api.post('/login', body)
-        
+     
+        console.log(response.data.token)
         if (response) {
             alert('Login realizado com sucesso!')
             navigate('/tasks')
